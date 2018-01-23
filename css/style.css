@@ -1,0 +1,28 @@
+table th {
+    text-align: center;
+}
+
+th[rowspan="2"] {
+    vertical-align: middle !important;
+}
+
+.logo, .content {
+    text-align: center
+}
+
+.profile {
+    display: table;
+    margin: auto;
+}
+
+.profile .avatar-container,
+.profile .info-container {
+    display: table-cell;
+    vertical-align: top
+}
+
+
+.profile .info-container .name {
+    font-size: 20px;
+    font-weight: 700;
+}
