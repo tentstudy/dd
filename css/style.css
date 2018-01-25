@@ -1,3 +1,7 @@
+.btn, .form-control {
+    border-radius: 0 !important; 
+}
+
 table th {
     text-align: center;
 }
@@ -10,6 +14,10 @@ th[rowspan="2"] {
     text-align: center
 }
 
+.content {
+    margin-bottom: 20px;
+}
+
 .profile {
     display: table;
     margin: auto;
@@ -18,11 +26,28 @@ th[rowspan="2"] {
 .profile .avatar-container,
 .profile .info-container {
     display: table-cell;
-    vertical-align: top
+    vertical-align: top;
+    padding: 5px
 }
 
 
 .profile .info-container .name {
     font-size: 20px;
     font-weight: 700;
+}
+
+.rollup {
+    width: 250px;
+    margin: 5px auto
+}
+
+.rollup .captcha-view {
+    font-size: 40px;
+    font-weight: 900;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.rollup .captcha-rule {
+    color: blue;
+    font-style: italic;
 }
