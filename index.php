@@ -56,32 +56,60 @@ $_SESSION['rule'] = $rule['id'];
     <title>Điểm danh - TentStudy</title>
     <link rel="icon" href="http://dangdung.xyz/images/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
 <body>
-<div class="container">
-    <div class="logo">
-        <img src="images/logo-rec.png" alt="">
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar7">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src="images/logo-rec.png" alt="Tent Study">
+            </a>
+        </div>
+
+
+        <div id="navbar7" class="navbar-collapse collapse">
+<!--            <ul class="nav navbar-nav navbar-left">
+<li class="active"><a href="/">Home</a></li>
+<li><a href="#">About</a></li>
+</ul>-->
+            <ul class="nav navbar-nav navbar-right">
+                <?php if (isset($_SESSION['access_token'])) : ?>
+                    <li class="dropdown user">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <img
+                                    src="https://graph.facebook.com/<?php echo $_SESSION['id'] ?>/picture?type=large&amp;redirect=true&amp;width=50&amp;height=50"
+                                    width="30" height="30"><?php echo $_SESSION['name'] ?> <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <!--                        <li><a href="#">Action</a></li>-->
+                            <!--                        <li><a href="#">Another action</a></li>-->
+                            <!--                        <li><a href="#">Something else here</a></li>-->
+                            <!--                        <li class="divider"></li>-->
+                            <!--                        <li class="dropdown-header">Nav header</li>-->
+                            <!--                        <li><a href="#">Separated link</a></li>-->
+                        <li><a href="/logout.php">Logout</a></li>
+                    </ul>
+                </li>
+                <?php else : ?>
+                    <li><a href="<?php echo $loginUrl ?>">Login with Facebook</a></li>
+                <?php endif; ?>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
     </div>
-    <hr style="max-width: 150px;">
+    <!--/.container-fluid -->
+</nav>
+<div class="container">
     <div class="content">
-        <?php if (!isset($_SESSION['access_token'])) : ?>
-            <a href="<?php echo $loginUrl ?>" class="btn btn-primary">Log in with Facebook</a>
-        <?php else : ?>
-            <div class="profile">
-                <div class="avatar-container">
-                    <img
-                            src="https://graph.facebook.com/<?php echo $_SESSION['id'] ?>/picture?type=large&amp;redirect=true&amp;width=50&amp;height=50"
-                            width="50" height="50">
-                </div>
-                <div class="info-container">
-                    <div class="name"><?php echo $_SESSION['name'] ?></div>
-                    <div class="action">
-                        [<a href="/logout.php">Logout</a>]
-                    </div>
-                </div>
-            </div>
+        <?php if (isset($_SESSION['access_token'])) : ?>
             <div class="rollup">
                 <div class="captcha-view"><?php echo $_SESSION['captcha'] ?></div>
                 <div class="captcha-rule"><?php echo $rule['text'] ?></div>
@@ -121,7 +149,7 @@ $_SESSION['rule'] = $rule['id'];
         $week[$id] = [];
     }
 
-    $query = "SELECT rollup.*, users.name FROM rollup JOIN users ON id = rollup.user_id WHERE roll_day >= {$lastMonday} AND roll_day <= {$nextSunday} ORDER BY first DESC";
+    $query = "SELECT rollup.*, users.name FROM rollup JOIN users ON id = rollup.user_id WHERE roll_day >= {$lastMonday} AND roll_day <= {$nextSunday} ORDER BY updated DESC";
     $result = mysqli_query($conn, $query);
 
     if ($result->num_rows > 0) :
@@ -212,5 +240,7 @@ $_SESSION['rule'] = $rule['id'];
         </div>
     <?php endif ?>
 </div>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

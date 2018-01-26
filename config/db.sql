@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `rollup` (
   `first` time DEFAULT NULL,
   `last` time DEFAULT NULL,
   `note` text,
+  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`,`roll_day`),
   CONSTRAINT `FK1_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -36,7 +37,6 @@ CREATE TABLE IF NOT EXISTS `rules` (
 CREATE TABLE IF NOT EXISTS `users` (
   `id` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `created_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

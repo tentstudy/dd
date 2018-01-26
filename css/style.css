@@ -10,6 +10,22 @@ th[rowspan="2"] {
     vertical-align: middle !important;
 }
 
+li.dropdown.user a.dropdown-toggle {
+    padding-left: 50px;
+}
+
+li.dropdown.user a.dropdown-toggle img {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+@media all and (max-width: 765px){
+    li.dropdown.user img {
+        display: none !important;
+    }
+}
+
 .logo, .content {
     text-align: center
 }
