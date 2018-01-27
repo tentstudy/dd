@@ -147,12 +147,6 @@
 
         $lastSunday = date('Ymd', strtotime('last Sunday', strtotime($today)));
 
-        $lastMonday = date('Ymd', strtotime('last Monday', strtotime($today)));
-
-        if (date('D', strtotime($today)) === 'Mon') {
-            $lastMonday = $today;
-        }
-
         $nextMonday = date('Ymd', strtotime('next Monday', strtotime($today)));
 
         $week = [];
@@ -165,7 +159,7 @@
         $query = "SELECT rollup.*, users.name 
               FROM rollup JOIN users 
               ON id = rollup.user_id 
-              WHERE roll_day >= {$lastMonday} AND roll_day < {$nextMonday} 
+              WHERE roll_day > {$lastSunday} AND roll_day < {$nextMonday} 
               ORDER BY updated DESC";
 
         $result = mysqli_query($conn, $query);
@@ -209,7 +203,7 @@
                     <thead>
                     <tr>
                         <th rowspan="2">
-                            <?php echo date('d/m', strtotime($lastMonday)) . ' - ' . date('d/m', strtotime($nextMonday - 1)); ?>
+                            <?php echo date('d/m', strtotime($lastSunday + 1)) . ' - ' . date('d/m', strtotime($nextMonday - 1)); ?>
                         </th>
                         <th colspan="2">Mon</th>
                         <th colspan="2">Tue</th>
