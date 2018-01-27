@@ -1,25 +1,31 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dangd
- * Date: 1/24/2018
- * Time: 10:13 PM
- */
+    /**
+     * Created by PhpStorm.
+     * User: dangd
+     * Date: 1/24/2018
+     * Time: 10:13 PM
+     */
 
-require_once __DIR__ . '/libs/connect.php';
+    require_once __DIR__ . '/libs/connect.php';
 
-require_once __DIR__ . '/libs/functions.php';
+    require_once __DIR__ . '/libs/functions.php';
 
-if (!session_id()) {
-    session_start();
-}
+    if (!session_id()) {
+        session_start();
+    }
 
-if (isset($_POST['btnRollUp']) && isset($_SESSION['access_token'])) {
+    if (!isset($_POST['btnRollUp']) || !isset($_SESSION['access_token'])) {
+        $conn->close();
+        header('Location: /');
+
+        return;
+    }
+
     $rule = htmlspecialchars($_POST['rule']);
     $token = $_POST['token'];
     $captcha = $_POST['captcha'];
 
-    if ($token !== $_SESSION['token']) {
+    if ($token !== $_SESSION['token'] || $rule !== $_SESSION['rule']) {
         header("Location: /");
 
         return;
@@ -54,13 +60,13 @@ if (isset($_POST['btnRollUp']) && isset($_SESSION['access_token'])) {
     $today = date("Ymd");
     $time = date("H:i");
 
-if ($time < $config['new_day']) $today -= 1;
+    if ($time < $config['new_day']) $today -= 1;
 
     $query = "SELECT * FROM rollup WHERE user_id = '{$_SESSION['id']}' AND roll_day = {$today}";
 
     $result = mysqli_query($conn, $query);
 
-    //first time
+//first time
     if ($result->num_rows === 0) {
         $query = "INSERT INTO rollup (user_id, roll_day, first) VALUES ('{$_SESSION['id']}', {$today}, '{$time}')";
 
@@ -78,7 +84,7 @@ if ($time < $config['new_day']) $today -= 1;
 
         return;
     }
-    //last time
+//last time
     $query = "UPDATE rollup SET last = '{$time}' WHERE user_id = '{$_SESSION['id']}' AND roll_day = {$today}";
 
     $check = mysqli_query($conn, $query);
@@ -92,9 +98,3 @@ if ($time < $config['new_day']) $today -= 1;
 
     $_SESSION['success'] = 'Roll up successfully';
     header('Location: /');
-
-    return;
-}
-
-$conn->close();
-header('Location: /');
