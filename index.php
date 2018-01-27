@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Created by PhpStorm.
  * User: dangd
@@ -54,7 +54,8 @@ $_SESSION['rule'] = $rule['id'];
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Điểm danh - TentStudy</title>
-    <link rel="icon" href="http://dangdung.xyz/images/favicon.png" type="image/x-icon">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="https://dangdung.xyz/images/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/navbar.css">
@@ -242,5 +243,6 @@ $_SESSION['rule'] = $rule['id'];
 </div>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

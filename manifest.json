@@ -1,0 +1,23 @@
+{
+    "background_color":"#ffffff",
+    "description":"Hệ thống điểm danh nội bộ TentStudy",
+    "display":"standalone",
+    "icons":[
+        {
+            "src":"/images/favicon.png",
+            "type":"image/png",
+            "density":"1.0"
+        },
+        {
+            "src": "/images/icons/144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "density": "3.0"
+        }
+    ],
+    "lang":"en-US",
+    "name":"Điểm danh - TentStudy",
+    "short_name":"TentStudy",
+    "start_url":"./",
+    "theme_color":"#4fc08d"
+}

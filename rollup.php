@@ -54,7 +54,7 @@ if (isset($_POST['btnRollUp']) && isset($_SESSION['access_token'])) {
     $today = date("Ymd");
     $time = date("H:i");
 
-    if ($time < $config['new_day']) $today -= 1;
+if ($time < $config['new_day']) $today -= 1;
 
     $query = "SELECT * FROM rollup WHERE user_id = '{$_SESSION['id']}' AND roll_day = {$today}";
 
