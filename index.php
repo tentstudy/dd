@@ -125,6 +125,12 @@
                             echo "<div class=\"alert alert-success\">{$_SESSION['success']}</div>";
                             unset($_SESSION['success']);
                         }
+
+                        if (isset($_SESSION['warning'])) {
+                            echo "<div class=\"alert alert-warning\">{$_SESSION['warning']}</div>";
+                            unset($_SESSION['warning']);
+                        }
+
                         if (isset($_SESSION['error'])) {
                             echo "<div class=\"alert alert-danger\">{$_SESSION['error']}</div>";
                             unset($_SESSION['error']);
@@ -236,7 +242,7 @@
                             echo "<tr><td>{$user['name']}</td>";
                             foreach ($week as $day) {
                                 if (isset($day[$user_id])) {
-                                    $f = $day[$user_id]['first'] ? date("H:i", strtotime($day[$user_id]['first'])) : '';
+                                    $f = $day[$user_id]['first'] ? date("H:i", strtotime($day[$user_id]['first'])) : '❌';
                                     $l = $day[$user_id]['last'] ? date("H:i", strtotime($day[$user_id]['last'])) : '';
 
                                     echo "<td>{$f}</td>

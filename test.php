@@ -6,5 +6,6 @@
      * Time: 10:55 AM
      */
 
-    session_start();
-    var_dump($_SESSION);
+    $today = date("Ymd", strtotime('01.01.2018'));
+
+    echo date('d/m', strtotime($today - 1));
