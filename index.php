@@ -242,7 +242,8 @@
                             echo "<tr><td>{$user['name']}</td>";
                             foreach ($week as $day) {
                                 if (isset($day[$user_id])) {
-                                    $f = $day[$user_id]['first'] ? date("H:i", strtotime($day[$user_id]['first'])) : '❌';
+                                    $f = $day[$user_id]['first'] ? date("H:i", strtotime($day[$user_id]['first'])) : '';
+                                    $f .= $day[$user_id]['first'] > $config['limit_time'] ? ' ❌' : '';
                                     $l = $day[$user_id]['last'] ? date("H:i", strtotime($day[$user_id]['last'])) : '';
 
                                     echo "<td>{$f}</td>

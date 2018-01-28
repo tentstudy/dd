@@ -70,23 +70,7 @@
     if ($result->num_rows === 0) {
 
         if ($time > $config['limit_time']) { //late
-
-            $query = "INSERT INTO rollup (user_id, roll_day, first, last) 
-                      VALUES ('{$_SESSION['id']}', {$today}, NULL, '{$time}')";
-
-            $check = mysqli_query($conn, $query);
-
-            if (!$check) {
-                $_SESSION['error'] = 'Cannot roll up now, try again later';
-                header('Location: /');
-
-                return;
-            }
-
             $_SESSION['warning'] = "The latest time is {$config['limit_time']}";
-            header('Location: /');
-
-            return;
         }
 
         $query = "INSERT INTO rollup (user_id, roll_day, first) VALUES ('{$_SESSION['id']}', {$today}, '{$time}')";
