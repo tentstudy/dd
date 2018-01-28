@@ -243,11 +243,16 @@
                             foreach ($week as $day) {
                                 if (isset($day[$user_id])) {
                                     $f = $day[$user_id]['first'] ? date("H:i", strtotime($day[$user_id]['first'])) : '';
-                                    $f .= $day[$user_id]['first'] > $config['limit_time'] ? ' ❌' : '';
+
+                                    if ($day[$user_id]['first'] > $config['limit_time']) {
+                                        $late = strtotime($day[$user_id]['first']) - strtotime($config['limit_time']);
+                                        $late = gmdate('H:i', $late);
+                                        $f = "<span title=\"{$late} late\" class=\"cross\">❌</span>" . $f;
+                                    }
+
                                     $l = $day[$user_id]['last'] ? date("H:i", strtotime($day[$user_id]['last'])) : '';
 
-                                    echo "<td>{$f}</td>
-                                  <td>{$l}</td>";
+                                    echo "<td>{$f}</td><td>{$l}</td>";
                                 } else {
                                     echo "<td></td><td></td>";
                                 }

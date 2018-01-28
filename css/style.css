@@ -67,3 +67,7 @@ li.dropdown.user a.dropdown-toggle img {
     color: blue;
     font-style: italic;
 }
+
+.cross {
+    cursor: pointer;
+}
