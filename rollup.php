@@ -21,17 +21,16 @@
         return;
     }
 
-    $rule = htmlspecialchars($_POST['rule']);
     $token = $_POST['token'];
     $captcha = $_POST['captcha'];
 
-    if ($token !== $_SESSION['token'] || $rule !== $_SESSION['rule']) {
+    if ($token !== $_SESSION['token'] ) {
         header("Location: /");
 
         return;
     }
 
-    $query = "SELECT * FROM rules WHERE id = '{$rule}'";
+    $query = "SELECT * FROM rules WHERE id = '{$_SESSION['rule']}'";
 
     $result = mysqli_query($conn, $query);
 

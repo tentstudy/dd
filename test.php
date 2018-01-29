@@ -6,6 +6,10 @@
      * Time: 10:55 AM
      */
 
-    $today = date("Ymd", strtotime('01.01.2018'));
+    require_once __DIR__ . '/libs/connect.php';
 
-    echo date('d/m', strtotime($today - 1));
+    require_once __DIR__ . '/libs/functions.php';
+
+echo "<img src=\"data:image/png;base64,{$src}\" />";
+
+
