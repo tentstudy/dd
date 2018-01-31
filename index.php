@@ -47,6 +47,8 @@
 
     $_SESSION['rule'] = $rule['id'];
 
+    $capSrc = generateCaptcha($_SESSION['captcha'], $rule['text']);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -112,11 +114,9 @@
     <div class="content">
         <?php if (isset($_SESSION['access_token'])) : ?>
             <div class="rollup">
-                <div class="captcha-view"><?php echo $_SESSION['captcha'] ?></div>
-                <div class="captcha-rule"><?php echo $rule['text'] ?></div>
+                <div class="captcha-view"><img src="<?php echo $capSrc ?>"/></div>
                 <form method="POST" action="rollup.php">
                     <div class="form-group">
-                        <input hidden name="rule" value="<?php echo $rule['id'] ?>" title="rule"/>
                         <input hidden name="token" value="<?php echo $_SESSION['token'] ?>" title="token"/>
                         <input class="form-control" name="captcha" type="text" title="captcha" required>
                     </div>
