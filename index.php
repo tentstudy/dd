@@ -149,7 +149,7 @@
         $today = date("Ymd");
         $time = date("H:i");
 
-        if ($time < $config['new_day']) $today -= 1;
+        if ($time < $config['new_day']) $today = date('Ymd',strtotime("yesterday"));
 
         $lastSunday = date('Ymd', strtotime('last Sunday', strtotime($today)));
 
