@@ -248,6 +248,10 @@
                                         $late = strtotime($day[$user_id]['first']) - strtotime($config['limit_time']);
                                         $late = gmdate('H:i', $late);
                                         $f = "<span title=\"{$late} late\" class=\"cross\">❌</span>" . $f;
+                                    } else if ($day[$user_id]['first'] < $config['new_day']) {
+                                        $late = strtotime('24:00') - strtotime($day[$user_id]['first']) - (strtotime($config['limit_time']) - strtotime($day[$user_id]['first']));
+                                        $late = gmdate('H:i', $late);
+                                        $f = "<span title=\"{$late} late\" class=\"cross\">❌</span>" . $f;
                                     }
 
                                     $l = $day[$user_id]['last'] ? date("H:i", strtotime($day[$user_id]['last'])) : '';
