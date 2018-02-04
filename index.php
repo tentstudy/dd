@@ -157,6 +157,7 @@
 
         $week = [];
 
+        //init map week by day
         foreach ($days as $day) {
             $id = date('Ymd', strtotime("next {$day}", strtotime($lastSunday)));
             $week[$id] = [];
@@ -173,6 +174,7 @@
         if ($result->num_rows > 0) :
             $data = [];
 
+            //map infor user and map user data to week
             while ($row = $result->fetch_assoc()) $data[] = $row;
 
             $mapUser = [];
@@ -240,7 +242,7 @@
                     <?php
                         foreach ($mapUser as $user_id => $user) {
                             echo "<tr><td>{$user['name']}</td>";
-                            foreach ($week as $day) {
+                            foreach ($week as $daytime => $day) {
                                 if (isset($day[$user_id])) {
                                     $f = $day[$user_id]['first'] ? date("H:i", strtotime($day[$user_id]['first'])) : '';
 
@@ -254,7 +256,8 @@
 
                                     echo "<td>{$f}</td><td>{$l}</td>";
                                 } else {
-                                    echo "<td></td><td></td>";
+                                    $f = $daytime < $today ? "<span class=\"cross\">❌</span>" : '';
+                                    echo "<td>{$f}</td><td></td>";
                                 }
 
                             }

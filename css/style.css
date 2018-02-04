@@ -70,4 +70,5 @@ li.dropdown.user a.dropdown-toggle img {
 
 .cross {
     cursor: pointer;
+    color: red;
 }
