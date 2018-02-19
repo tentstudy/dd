@@ -10,6 +10,8 @@
 
     require_once __DIR__ . '/libs/functions.php';
 
+    require_once __DIR__ . '/models/RollUp.php';
+
     if (!session_id()) {
         session_start();
     }
@@ -56,49 +58,13 @@
         return;
     }
 
-    $today = date("Ymd");
-    $time = date("H:i");
+    $result = rollup($conn, $config['new_day'], $config['limit_time'], $_SESSION['id']);
 
-    if ($time < $config['new_day']) $today = date('Ymd',strtotime("yesterday"));
-
-    $query = "SELECT * FROM rollup WHERE user_id = '{$_SESSION['id']}' AND roll_day = {$today}";
-
-    $result = mysqli_query($conn, $query);
-
-//first time
-    if ($result->num_rows === 0) {
-
-        if ($time > $config['limit_time']) { //late
-            $_SESSION['warning'] = "The latest time is {$config['limit_time']}";
-        }
-
-        $query = "INSERT INTO rollup (user_id, roll_day, first) VALUES ('{$_SESSION['id']}', {$today}, '{$time}')";
-
-        $check = mysqli_query($conn, $query);
-
-        if (!$check) {
-            $_SESSION['error'] = 'Cannot roll up now, try again later';
-            header('Location: /');
-
-            return;
-        }
-
-        $_SESSION['success'] = 'Roll up successfully';
-        header('Location: /');
-
-        return;
-    }
-//last time
-    $query = "UPDATE rollup SET last = '{$time}' WHERE user_id = '{$_SESSION['id']}' AND roll_day = {$today}";
-
-    $check = mysqli_query($conn, $query);
-
-    if (!$check) {
-        $_SESSION['error'] = 'Cannot roll up now, try again later';
-        header('Location: /');
-
-        return;
+    $_SESSION['warning'] = $result['warning'] ?? '';
+    if ($result['success']) {
+        $_SESSION['success'] = $result['message'];
+    } else {
+        $_SESSION['error'] = $result['message'];
     }
 
-    $_SESSION['success'] = 'Roll up successfully';
     header('Location: /');

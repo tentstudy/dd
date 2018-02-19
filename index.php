@@ -126,7 +126,7 @@
                             unset($_SESSION['success']);
                         }
 
-                        if (isset($_SESSION['warning'])) {
+                        if (!empty($_SESSION['warning'])) {
                             echo "<div class=\"alert alert-warning\">{$_SESSION['warning']}</div>";
                             unset($_SESSION['warning']);
                         }
